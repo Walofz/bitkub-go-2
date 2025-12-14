@@ -9,23 +9,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 	"time"
 )
-
-func API_URL() string {
-	return os.Getenv("BITKUB_API_BASE_URL")
-}
-
-func API_KEY() string {
-	return os.Getenv("BITKUB_API_KEY")
-}
-
-func API_SECRET() string {
-	return os.Getenv("BITKUB_API_SECRET")
-}
 
 func signPayload(apiSecret string, timestamp string, method string, endpoint string, body []byte) string {
 	sigBody := ""
@@ -41,7 +28,7 @@ func signPayload(apiSecret string, timestamp string, method string, endpoint str
 }
 
 func sendPrivateRequest(endpoint string, method string, payload map[string]interface{}) ([]byte, error) {
-	if APIKey == API_KEY() || APISecret == API_SECRET() {
+	if APIKey == "your_api_key_here" || APISecret == "your_api_secret_here" {
 		return nil, fmt.Errorf("API Keys not configured. Please check config.go")
 	}
 
@@ -51,7 +38,7 @@ func sendPrivateRequest(endpoint string, method string, payload map[string]inter
 	}
 	timestamp := strconv.FormatInt(time.Now().UnixNano()/int64(time.Millisecond), 10)
 	signature := signPayload(APISecret, timestamp, method, "/api/"+endpoint, payloadBytes)
-	req, _ := http.NewRequest(method, API_URL()+"/"+endpoint, bytes.NewBuffer(payloadBytes))
+	req, _ := http.NewRequest(method, APIUrl+"/"+endpoint, bytes.NewBuffer(payloadBytes))
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-BTK-TIMESTAMP", timestamp)
@@ -77,7 +64,7 @@ func sendPrivateRequest(endpoint string, method string, payload map[string]inter
 }
 
 func FetchTickerPrice(sym string) (float64, error) {
-	resp, err := http.Get(API_URL() + "/market/ticker?sym=" + sym)
+	resp, err := http.Get(APIUrl + "/market/ticker?sym=" + sym)
 	if err != nil {
 		return 0, err
 	}

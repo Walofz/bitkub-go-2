@@ -36,7 +36,7 @@ func fetchCurrentBalance() map[string]float64 {
 	return balances
 }
 
-func CalculatePortfolio() PortfolioSummary {	
+func CalculatePortfolio() PortfolioSummary {
 	balance := fetchCurrentBalance()
 	coinPrice := fetchCurrentPrice(CoinAsset)
 	LastCoinPrice = coinPrice

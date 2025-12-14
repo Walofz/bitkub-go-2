@@ -13,22 +13,26 @@ var (
 	IsDryRun          bool
 	InitialInvestment float64
 	Threshold         float64
-	CoinAsset         string = "ETH"
+	CoinAsset         string
 	DiscordWebhookURL string
+	APIUrl            string
 
 	TargetAssets map[string]float64
 )
 
 var ConfigMutex sync.RWMutex
 
-func init() {
+func LoadConfig() {
 	APIKey = os.Getenv("BITKUB_API_KEY")
 	APISecret = os.Getenv("BITKUB_API_SECRET")
 	DiscordWebhookURL = os.Getenv("DISCORD_WEBHOOK_URL")
+	APIUrl = os.Getenv("BITKUB_API_BASE_URL")
+	CoinAsset = os.Getenv("ASSET_SYMBOLS")
 
 	if APIKey == "" || APISecret == "" {
-		fmt.Println("❌ CRITICAL: BITKUB_API_KEY or SECRET is missing. Trading will fail.")
-	}
+        panic("❌ Error fetching wallet balance: API Keys not configured. Please check config.go")        
+    }
+
 	IsDryRun, _ = strconv.ParseBool(os.Getenv("IS_DRY_RUN"))
 
 	if val, err := strconv.ParseFloat(os.Getenv("INITIAL_INVESTMENT"), 64); err == nil {

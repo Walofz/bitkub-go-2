@@ -14,10 +14,9 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		fmt.Println("❌ .env NOT loaded:", err)
-	} else {
-		fmt.Println("✅ .env loaded")
+		fmt.Println("⚠️  Warning: .env file not found (Are you using Docker env vars?)")
 	}
+	core.LoadConfig()
 
 	if err := core.InitDB(os.Getenv("DB_PATH")); err != nil {
 		fmt.Printf("Fatal error during DB initialization: %v\n", err)
@@ -127,5 +126,5 @@ func main() {
 		core.SendDiscordStartup()
 		core.StartBotLoop()
 	}()
-	r.Run(":8080")
+	r.Run(":8888")
 }
