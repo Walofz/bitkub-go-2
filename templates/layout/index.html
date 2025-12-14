@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitkub Rebalance Bot Status</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>    
+    <div class="container">
+        <div class="header-bar status-box">
+            <div class="username">👤 ผู้ใช้: {{.Username}}</div>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+        
+        <br>
+        <h1>🤖 Bitkub Rebalance Bot Status</h1>
+
+        <div class="status-box" id="mode-status-box">
+            โหมดปัจจุบัน: <span id="mode-display">...</span>
+        </div>
+
+        <div class="info-detail">
+            <p>อัปเดตล่าสุด: <span id="last-run-display">--:--:--</span></p>
+            <p style="font-weight: bold;">ETH ราคาล่าสุด: <span id="eth-price-display">...</span> THB</p>
+
+            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+
+            <p style="font-size: 1.1em;">มูลค่าพอร์ตรวม: <span id="total-value-display"
+                    style="font-weight: bold;">...</span></p>
+            <p style="font-size: 1.1em;">ผลตอบแทน (ROI): <span id="roi-display" style="font-weight: bold;">0.00%</span>
+            </p>
+        </div>
+
+        <h3>📈 พอร์ตโฟลิโอและสัดส่วน</h3>
+
+        <table class="table" id="balance-table">
+            <thead>
+                <tr>
+                    <th>Asset</th>
+                    <th>จำนวนเหรียญที่มีอยู่</th>
+                    <th>ยอดคงเหลือ (THB Eq.)</th>
+                    <th>สัดส่วนจริง</th>
+                    <th>สัดส่วนเป้าหมาย</th>
+                </tr>
+            </thead>
+            <tbody id="balance-data">
+                <tr>
+                    <td colspan="5" style="text-align: center;">กำลังโหลดข้อมูล...</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 style="margin-top: 40px; border-left: 5px solid #28a745; color: #28a745;">
+            📜 ประวัติการเทรดจริง (Production Log)
+        </h3>
+        <p style="font-size: 0.9em; color: #666;">แสดง 10 รายการล่าสุด</p>
+
+        <table class="table" id="history-table">
+            <thead>
+                <tr style="background-color: #28a745;">
+                    <th>เวลา</th>
+                    <th>คู่เหรียญ</th>
+                    <th>Action</th>
+                    <th>ราคา (THB)</th>
+                    <th>จำนวนเงิน (THB)</th>
+                    <th>จำนวนเหรียญ</th>
+                    <th>% เบี่ยงเบน</th>
+                </tr>
+            </thead>
+            <tbody id="history-data">
+                <tr>
+                    <td colspan="7" style="text-align: center;">กำลังโหลดข้อมูล...</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>⚙️ การควบคุมบอท</h3>
+        <div class="control-panel" style="text-align: center;">
+            <button class="dry" onclick="toggleMode('dry')">เปลี่ยนเป็น DRY RUN</button>
+            <button class="prod" onclick="toggleMode('prod')">เปลี่ยนเป็น PRODUCTION</button>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
