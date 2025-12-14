@@ -14,7 +14,9 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		fmt.Printf("Error loading .env")
+		fmt.Println("❌ .env NOT loaded:", err)
+	} else {
+		fmt.Println("✅ .env loaded")
 	}
 
 	if err := core.InitDB(os.Getenv("DB_PATH")); err != nil {
@@ -38,7 +40,7 @@ func main() {
 		c.HTML(http.StatusOK, "login.html", gin.H{"Error": ""})
 	})
 
-	r.GET("/logout", func(c *gin.Context) {		
+	r.GET("/logout", func(c *gin.Context) {
 		c.SetCookie("session", "", -1, "/", "", false, true)
 		c.Redirect(http.StatusSeeOther, "/login")
 	})

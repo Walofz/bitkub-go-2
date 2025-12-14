@@ -13,7 +13,7 @@ var (
 	IsDryRun          bool
 	InitialInvestment float64
 	Threshold         float64
-	CoinAsset         string  = "ETH"
+	CoinAsset         string = "ETH"
 	DiscordWebhookURL string
 
 	TargetAssets map[string]float64

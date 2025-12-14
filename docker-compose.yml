@@ -7,5 +7,5 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./data/db:/app/database
+      - ./database:/app/database
     restart: always

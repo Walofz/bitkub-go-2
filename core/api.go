@@ -19,6 +19,14 @@ func API_URL() string {
 	return os.Getenv("BITKUB_API_BASE_URL")
 }
 
+func API_KEY() string {
+	return os.Getenv("BITKUB_API_KEY")
+}
+
+func API_SECRET() string {
+	return os.Getenv("BITKUB_API_SECRET")
+}
+
 func signPayload(apiSecret string, timestamp string, method string, endpoint string, body []byte) string {
 	sigBody := ""
 	if len(body) > 0 {
@@ -33,7 +41,7 @@ func signPayload(apiSecret string, timestamp string, method string, endpoint str
 }
 
 func sendPrivateRequest(endpoint string, method string, payload map[string]interface{}) ([]byte, error) {
-	if APIKey == os.Getenv("BITKUB_API_KEY") || APISecret == os.Getenv("BITKUB_API_SECRET") {
+	if APIKey == API_KEY() || APISecret == API_SECRET() {
 		return nil, fmt.Errorf("API Keys not configured. Please check config.go")
 	}
 
